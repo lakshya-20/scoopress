@@ -92,5 +92,15 @@ postRouter.post('/:id',function(req,res){
     })
 })
 
+postRouter.delete('/:filename',function(req,res){
+    gfs.remove({ filename: req.params.filename, root: 'posts' }, (err, gridStore) => {
+        if (err) {
+          return res.status(404).json({ err: err });
+        }
+        else{
+            res.redirect('/');
+        }
+      });
+})
 
 module.exports=postRouter;
