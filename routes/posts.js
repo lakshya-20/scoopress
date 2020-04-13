@@ -19,9 +19,28 @@ postRouter.get('/',function(req,res){
     })
 })
 postRouter.post('/',function(req,res){
-    console.log("Entered")
     //req.body=req.user.username
     Posts.create(req.body,function(err,doc){
+        if(err){
+            res.status(500).send("Error Occured");
+        }
+        else{
+            res.send(doc);
+        }
+    })
+})
+postRouter.get('/:id',function(req,res){
+    Posts.findById({_id:req.params.id},function(err,doc){
+        if(err){
+            res.status(500).send("Error Occured");
+        }
+        else{
+            res.send(doc);
+        }
+    })
+})
+postRouter.post('/:id',function(req,res){
+    Posts.findByIdAndUpdate(req.params.id,{$set:req.body},function(err,doc){
         if(err){
             res.status(500).send("Error Occured");
         }
