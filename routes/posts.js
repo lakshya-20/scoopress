@@ -81,15 +81,17 @@ postRouter.get('/:filename',function(req,res){
     })
     
 })
-postRouter.post('/:id',function(req,res){
-    Posts.findByIdAndUpdate(req.params.id,{$set:req.body},function(err,doc){
+postRouter.put('/:filename',function(req,res){
+    console.log(req.params.filename)
+    gfs.files.updateOne({filename: req.params.filename},{ $set:req.body},function(err,file){
         if(err){
             res.status(500).send("Error Occured");
         }
         else{
-            res.send(doc);
+            res.send(file);
         }
-    })
+    }
+    )
 })
 
 postRouter.delete('/:filename',function(req,res){
