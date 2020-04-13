@@ -25,6 +25,12 @@ conn.once('open', () => {
     gfs.collection('workers');
   });
 
+var randomFilename=null
+
+crypto.randomBytes(24, function(err, buffer) {
+    randomFilename = buffer.toString('hex');
+});
+  
 var storage = new GridFsStorage({
         url: mongoUrl,
         file: (req, file) => {
@@ -34,7 +40,7 @@ var storage = new GridFsStorage({
                 if (err) {
                 return reject(err);
                 }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const filename = randomFilename
                 const fileInfo = {
                 filename: filename,
                 metadata : req.body,
@@ -53,7 +59,11 @@ healthWorkersRouter.get('/',function(req,res){
     });
     
 })
-healthWorkersRouter.post('/',upload.single('file'),function(req,res){
+healthWorkersRouter.post('/',upload.array('file'),function(req,res){
+    crypto.randomBytes(24, function(err, buffer) {
+        randomFilename = buffer.toString('hex');
+    });
+
     res.redirect('/')
 })
 healthWorkersRouter.get('/:filename',function(req,res){

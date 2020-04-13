@@ -24,6 +24,11 @@ conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('posts');
   });
+var randomFilename=null
+
+crypto.randomBytes(24, function(err, buffer) {
+    randomFilename = buffer.toString('hex');
+  });
 
 var storage = new GridFsStorage({
         url: mongoUrl,
@@ -35,7 +40,7 @@ var storage = new GridFsStorage({
                     console.log("entered")
                 return reject(err);
                 }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const filename = randomFilename //+ path.extname(file.originalname);
                 const fileInfo = {
                 filename: filename,
                 metadata : req.body,
@@ -65,7 +70,10 @@ postRouter.get('/',function(req,res){
     });
     
 })
-postRouter.post('/',upload.single('file'),function(req,res){
+postRouter.post('/',upload.array('file',10),function(req,res){
+    crypto.randomBytes(24, function(err, buffer) {
+        randomFilename = buffer.toString('hex');
+      });
     res.redirect('/')
 })
 postRouter.get('/:filename',function(req,res){
