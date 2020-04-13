@@ -6,11 +6,22 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
     "debug": "~2.6.9",
+    "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "method-override": "^3.0.0",
+    "mongodb": "^3.5.4",
+    "mongoose": "^5.8.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-session": "^1.0.2"
   }
 }
