@@ -19,7 +19,7 @@ connect.then((db) =>{
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var auth=require('./routes/auth')(passport);
-
+var postRouter = require('./routes/posts');
 
 var app = express();
 
@@ -44,7 +44,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth',auth);
-
+app.use('/posts',postRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -22,7 +22,7 @@ router.get('/login',function(req,res,next){
 router.get('/signup',function(req,res,next){
   res.render('signup');
 });
-router.get('/dashboard',loggedin,function(req,res,next){
+router.get('/dashboard',function(req,res,next){
   res.render('dashboard');
 });
 
