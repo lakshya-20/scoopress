@@ -28,8 +28,8 @@ module.exports=function(passport){
                             res.status(500).send('Database Error')
                             console.log(err);
                         }
-                        else{   
-                            res.redirect('/dashboard')
+                        else{
+                            res.redirect('/login')
                         }
                     })
                 }
