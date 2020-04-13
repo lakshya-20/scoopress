@@ -22,7 +22,7 @@ var postSchema=new mongoose.Schema({
     },
     author:{
         type:String,
-        required:true
+        default:"admin"
     },
     dateCreated:{
         type:String,

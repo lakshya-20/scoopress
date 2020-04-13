@@ -11,7 +11,7 @@ var passport=require('passport');
 require('./utils/passport')(passport);
 const url=require('./config');
 //var connect=mongoose.connect('mongodb://localhost:27017/blogs');  
-var connect=mongoose.connect(url.dburl);
+var connect=mongoose.connect(url);
 connect.then((db) =>{
   console.log('Connected correctly to server');
 },(err)=>{console.log(err)});
@@ -52,6 +52,7 @@ app.use('/healthWorkers',healthWorkerRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

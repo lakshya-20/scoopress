@@ -25,5 +25,8 @@ router.get('/signup',function(req,res,next){
 router.get('/dashboard',function(req,res,next){
   res.render('dashboard');
 });
+router.get('/image',function(req,res){
+  res.render('newPost')
+})
 
 module.exports = router;
