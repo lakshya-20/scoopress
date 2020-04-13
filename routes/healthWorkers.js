@@ -19,7 +19,6 @@ healthWorkersRouter.get('/',function(req,res){
     })
 })
 healthWorkersRouter.post('/',function(req,res){
-    console.log("Entered")
     healthWorkers.create(req.body,function(err,doc){
         if(err){
             res.status(500).send("Error Occured");
@@ -29,5 +28,26 @@ healthWorkersRouter.post('/',function(req,res){
         }
     })
 })
+healthWorkersRouter.get('/:id',function(req,res){
+    healthWorkers.findById({_id:req.params.id},function(err,doc){
+        if(err){
+            res.status(500).send("Error Occured");
+        }
+        else{
+            res.send(doc);
+        }
+    })
+})
+healthWorkersRouter.post('/:id',function(req,res){
+    healthWorkers.findByIdAndUpdate(req.params.id,{$set:req.body},function(err,doc){
+        if(err){
+            res.status(500).send("Error Occured");
+        }
+        else{
+            res.send(doc);
+        }
+    })
+})
+
 
 module.exports=healthWorkersRouter;
