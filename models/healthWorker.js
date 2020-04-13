@@ -7,7 +7,7 @@ var dateTime = date+' '+time;
 
 var modelName="healthWorkers"
 
-var contactSchema = new mongoose.SchemaType({
+var contactSchema = new mongoose.Schema({
     phone:{
         type:Number,
         required:true
