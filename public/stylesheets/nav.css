@@ -1,0 +1,84 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html, body,
+ul, ol, li,
+h1, h2, h3, h4, h5, h6, p, div {
+  margin: 0;
+  padding: 0;
+}
+.navContainer {
+  height: 65px;
+  width: 100%;
+  background-color: rgba(34, 49, 52, 0.9);
+  top: 0;
+  z-index: 10;
+  position: fixed;
+}
+body {
+  font-family: "Lucida Grande";
+}
+.header-left {
+  float: left;
+}
+.top-header-right{
+  float: right;
+}
+.header-right {
+  margin-right: 10px;
+}
+.header-left p{
+  line-height: 65px;
+  padding: 0 25px;
+  color: white;
+  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.header-left p a{
+  text-decoration: none;
+  color: white;
+}
+.header-right a{
+  background-color: rgba(34, 49, 52, 0.9);
+  line-height: 65px;
+  padding: 0 25px;
+  color: white;
+  display: block;
+  float: left;
+  transition: all 0.5s;
+  text-decoration: none;
+}
+.header-right .icon{
+  display: none;
+}
+.header-right a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+@media screen and (max-width: 680px) {
+  .header-right .link{
+    display: none;
+  }
+  .header-right .icon{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .header-right { 
+    position: relative;
+  }
+  .header-right.responsive .link{
+    float:none;
+    display: block;
+    text-align: left; 
+  }
+  .header-right.responsive .icon{
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

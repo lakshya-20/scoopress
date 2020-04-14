@@ -72,6 +72,25 @@ postRouter.get('/',function(req,res){
     }
   });
 })
+postRouter.get('/top5',function(req,res){
+  gfs.files.find().sort({_id:1}).limit(5).toArray((err, files) => {
+   if (!files || files.length === 0) {
+     res.render('news', { files: false });
+   } else {
+     files.map(file => {
+       if (
+         file.contentType === 'image/jpeg' ||
+         file.contentType === 'image/png'
+       ) {
+         file.isImage = true;
+       } else {
+         file.isImage = false;
+       }
+     });
+     res.render('index', { files: files });
+   }
+ });
+})
 postRouter.get('/image/:filename',(req,res)=>{
     gfs.files.findOne({filename:req.params.filename},(err,file)=>{
         if(!file || file.length===0){
