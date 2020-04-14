@@ -40,7 +40,7 @@ var storage = new GridFsStorage({
                     console.log("entered")
                 return reject(err);
                 }
-                const filename = randomFilename //+ path.extname(file.originalname);
+                const filename = randomFilename+ path.extname(file.originalname);
                 const fileInfo = {
                 filename: filename,
                 metadata : req.body,
@@ -54,27 +54,54 @@ var storage = new GridFsStorage({
 const upload = multer({ storage });
 
 postRouter.get('/',function(req,res){
-    /*
-    Posts.find().sort({dateCreated:-1}).exec(function(err,docs){
-        if(err){
-            res.status(500).send("Error Occured");
+   gfs.files.find().toArray((err, files) => {
+    if (!files || files.length === 0) {
+      res.render('news', { files: false });
+    } else {
+      files.map(file => {
+        if (
+          file.contentType === 'image/jpeg' ||
+          file.contentType === 'image/png'
+        ) {
+          file.isImage = true;
+        } else {
+          file.isImage = false;
         }
-        else{
-            res.send(docs);
-        }
-    })
-    */
-
-    gfs.files.find().toArray((err, files) => {
-        res.send(files)
-    });
-    
+      });
+      res.render('news', { files: files });
+    }
+  });
 })
-postRouter.post('/',upload.array('file',10),function(req,res){
+postRouter.get('/image/:filename',(req,res)=>{
+    gfs.files.findOne({filename:req.params.filename},(err,file)=>{
+        if(!file || file.length===0){
+            return res.status(404).json({
+                err :'No file exists'
+            });
+        }
+        /*
+        if(file.contentType.match(/\.(jpg|jpeg|png|gif)$/)) {
+            const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+        }*/
+        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+            // Read output to browser
+            const readstream = gfs.createReadStream(file.filename);
+            readstream.pipe(res);
+          }
+        else{
+            return res.status(404).json({
+                err :'No file exists'
+            });
+        }
+    });
+});
+
+postRouter.post('/',upload.single('file',10),function(req,res){
     crypto.randomBytes(24, function(err, buffer) {
         randomFilename = buffer.toString('hex');
       });
-    res.redirect('/')
+    res.redirect('/posts')
 })
 postRouter.get('/:filename',function(req,res){
 
@@ -102,13 +129,13 @@ postRouter.put('/:filename',function(req,res){
     )
 })
 
-postRouter.delete('/:filename',function(req,res){
+postRouter.post('/delete/:filename',function(req,res){
     gfs.remove({ filename: req.params.filename, root: 'posts' }, (err, gridStore) => {
         if (err) {
           return res.status(404).json({ err: err });
         }
         else{
-            res.redirect('/');
+            res.redirect('/posts/');
         }
       });
 })

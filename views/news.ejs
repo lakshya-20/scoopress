@@ -12,22 +12,37 @@
       width: 100%;
     }
   </style>
-  <title>Mongo File Uploads</title>
+  <title>News</title>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
       <div class="col-md-6 m-auto">
-        <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
-        <form action="/posts" method="POST" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder=" Title">
-            <textarea name="headline" id="" cols="50" rows="5" class="textarea" placeholder=" Headline (pair of lines to describe your blog)"></textarea>
-            <textarea name="body" id="" cols="50" rows="10" class="textarea" placeholder=" Content"></textarea>
-            <input type="file" name="file" id="file" class="">
-            <label for="file" class="">Choose File</label>
-          <input type="submit" value="Submit" class="">
-        </form>
+        <h1 class="text-center display-4 my-4">News</h1>
+        
+        <hr>
+        <% if(files){ %>
+            <% files.forEach(function(file) { %>
+              <div class="card card-body mb-3">
+                <% if(file.isImage) { %>
+                  <%= file.metadata.title %>
+                  <%= file.metadata.headline %>
+                  <%= file.metadata.body %>
+                  <img src="/posts/image/<%= file.filename %>" alt="">
+                  <% } else { %>
+                    <%= file.filename %>
+                      <% } %>
+                      <form method="POST" action="/posts/delete/<%= file.filename %>">
+                        <button class="btn btn-danger btn-block mt-4">Delete</button>
+                      </form>
+                </div>
+            <% }) %>    
+
+        <% } else{ %>
+            <p>No files to show</p>
+            
+        <% } %>
       </div>
     </div>
   </div>

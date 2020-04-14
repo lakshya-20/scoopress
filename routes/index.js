@@ -25,8 +25,10 @@ router.get('/signup',function(req,res,next){
 router.get('/dashboard',function(req,res,next){
   res.render('dashboard');
 });
-router.get('/image',function(req,res){
+router.get('/newPost',function(req,res){
   res.render('newPost')
 })
-
+router.get('/news',function(req,res){
+  res.redirect('/posts/')
+})
 module.exports = router;
