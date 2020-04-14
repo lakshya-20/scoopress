@@ -68,7 +68,7 @@ postRouter.get('/',function(req,res){
           file.isImage = false;
         }
       });
-      res.render('news', { files: files });
+      res.render('posts', { files: files });
     }
   });
 })

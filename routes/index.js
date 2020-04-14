@@ -31,4 +31,10 @@ router.get('/newPost',function(req,res){
 router.get('/news',function(req,res){
   res.redirect('/posts/')
 })
+router.get('/newWorker',function(req,res){
+  res.render('newWorker')
+})
+router.get('/workers',function(req,res){
+  res.redirect('/healthWorkers/')
+})
 module.exports = router;
