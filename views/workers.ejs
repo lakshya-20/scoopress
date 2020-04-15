@@ -5,38 +5,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/stylesheets/posts.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <style>
     img {
       width: 100%;
     }
   </style>
-  <title>Workers</title>
+  <title>Honors</title>
 </head>
 
 <body>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_0r0csU.json"  background="transparent"  speed="1"  loop  autoplay class="animation1"></lottie-player>
+  
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 m-auto">
-        <h1 class="text-center display-4 my-4">Health Workers</h1>
-        
+    
+      <div class="col s12 m7">
+        <h1 class="text-center display-4 my-4 pageTitle">Honors Board<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_AQ3M8U.json"  background="transparent"  speed="1" class="animation2"  loop  autoplay></lottie-player></h1>
         <hr>
         <% if(files){ %>
-            <% files.forEach(function(file) { %>
-              <div class="card card-body mb-3">
-                <% if(file.isImage) { %>
-                  <%= file.metadata.title %>
-                  <%= file.metadata.headline %>
-                  <%= file.metadata.body %>
-                  <img src="/healthWorkers/image/<%= file.filename %>" alt="">
-                  <% } else { %>
-                    <%= file.filename %>
-                      <% } %>
-                      <form method="POST" action="/healthWorkers/delete/<%= file.filename %>">
-                        <button class="btn btn-danger btn-block mt-4">Delete</button>
-                      </form>
-                </div>
+          <% files.forEach(function(file) { %>
+        <div class="card">
+          <div class="card-image">
+            <img src="/healthWorkers/image/<%= file.filename %>" alt="">
+            <span class="card-title"><%= file.metadata.headline %></span>
+          </div>
+          <div class="card-action">
+            <a href="<%= file.metadata.link %>">Contact</a>
+          </div>
+        </div>
             <% }) %>    
 
         <% } else{ %>
@@ -44,7 +48,11 @@
             
         <% } %>
       </div>
-    </div>
+    
+  </div>
+  
+  <div class="back">
+    <a class="waves-effect waves-light btn backStyle" href="/">Back</a>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
