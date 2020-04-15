@@ -7,6 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <style>
     img {
       width: 100%;
@@ -17,26 +21,25 @@
 
 <body>
   <div class="container">
+    
     <div class="row">
-      <div class="col-md-6 m-auto">
+      <div class="col s12 m7">
         <h1 class="text-center display-4 my-4">News</h1>
-        
         <hr>
         <% if(files){ %>
-            <% files.forEach(function(file) { %>
-              <div class="card card-body mb-3">
-                <% if(file.isImage) { %>
-                  <%= file.metadata.title %>
-                  <%= file.metadata.headline %>
-                  <%= file.metadata.body %>
-                  <img src="/posts/image/<%= file.filename %>" alt="">
-                  <% } else { %>
-                    <%= file.filename %>
-                      <% } %>
-                      <form method="POST" action="/posts/delete/<%= file.filename %>">
-                        <button class="btn btn-danger btn-block mt-4">Delete</button>
-                      </form>
-                </div>
+          <% files.forEach(function(file) { %>
+        <div class="card">
+          <div class="card-image">
+            <img src="/posts/image/<%= file.filename %>" alt="">
+            <span class="card-title"><%= file.metadata.headline %></span>
+          </div>
+          <div class="card-content">
+            <p><%= file.metadata.body %></p>
+          </div>
+          <div class="card-action">
+            <a href="<%= file.metadata.link %>">Read</a>
+          </div>
+        </div>
             <% }) %>    
 
         <% } else{ %>
