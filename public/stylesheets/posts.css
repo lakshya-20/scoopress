@@ -1,0 +1,38 @@
+body{
+    background-image: url("/images/corona1.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+}
+.animation1{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    opacity: 0.8;
+    
+}
+
+.pageTitle{
+    text-transform: uppercase;
+    font-size:40px;
+    letter-spacing:20px;
+    margin:10px;
+    font-weight: bold;
+}
+.card{
+
+}
+
+.back{
+    margin:5%;
+    bottom: 10px;
+    position: fixed;
+}
+.backStyle{
+    background: rgb(155,101,162);
+background: linear-gradient(125deg, rgba(155,101,162,1) 0%, rgba(144,193,241,1) 100%, rgba(204,102,116,1) 100%);
+}
