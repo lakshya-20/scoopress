@@ -1,1 +1,68 @@
-Dashboard
+<html>
+    <head>
+        <title>
+            Scoopress
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/stylesheets/index.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <% include partials/navbarAdmin.ejs %>
+    <body>
+        <div>
+            
+        </div>
+        <div class="container">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_0r0csU.json"  background="transparent"  speed="1"  loop  autoplay class="animation1"></lottie-player>
+            <div class="contentContainer">
+                <div class="topWrapper">
+                    <div class="topWrapperLeft">
+                        <div class="topWrapperRightTitle"><p>COVID-19</p></div>
+                        <% include partials/covid19.ejs %>
+                        
+                    </div>
+                    
+                    <div class="topWrapperRight">
+                        <div class="topWrapperRightTitle"><p>Top Stories</p></div>
+                        
+                        <% if(files){ %>
+                            <div class="posts">
+                                <ul class="postsList">
+                            <% files.forEach(function(file) { %>
+                                <li>
+                                <a href="/posts/new" class="postsLink">
+                                <% if(file.isImage) { %>
+                                
+                                <img src="/posts/image/<%= file.filename %>" alt="" class="postImage">
+                                <spam class="title">
+                                <%= file.metadata.title %>
+                            </spam>    
+                                  <% } else { %>
+                                    <%= file.filename %>
+                                      <% } %>
+                                    </a>
+                                    </li>   
+                            
+                            <% }) %>    
+                        </ul>
+                        </div>
+                        <% } else{ %>
+                            <p>No files to show</p>
+                            
+                        <% } %>
+                    
+                    </div>
+                </div>
+                <div class="visualWrapper">
+                    <div class="visual1">
+                        <% include partials/visual1.ejs %>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </body>
