@@ -55,7 +55,7 @@ var storage = new GridFsStorage({
 const upload = multer({ storage });
 
 postRouter.get('/',function(req,res){
-   gfs.files.find().toArray((err, files) => {
+   gfs.files.find().sort({_id:-1}).toArray((err, files) => {
     if (!files || files.length === 0) {
       res.render('news', { files: false });
     } else {
@@ -74,7 +74,7 @@ postRouter.get('/',function(req,res){
   });
 })
 postRouter.get('/new',function(req,res){
-  gfs.files.find().toArray((err, files) => {
+  gfs.files.find().sort({_id:-1}).toArray((err, files) => {
    if (!files || files.length === 0) {
      res.render('news', { files: false });
    } else {
@@ -93,7 +93,7 @@ postRouter.get('/new',function(req,res){
  });
 })
 postRouter.get('/top5',function(req,res){
-  gfs.files.find().sort({_id:1}).limit(5).toArray((err, files) => {
+  gfs.files.find().sort({_id:-1}).limit(5).toArray((err, files) => {
    if (!files || files.length === 0) {
      res.render('news', { files: false });
    } else {

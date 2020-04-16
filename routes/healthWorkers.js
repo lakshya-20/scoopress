@@ -54,7 +54,7 @@ var storage = new GridFsStorage({
 const upload = multer({ storage });
 
 healthWorkerRouter.get('/',function(req,res){
-   gfs.files.find().toArray((err, files) => {
+   gfs.files.find().sort({_id:-1}).toArray((err, files) => {
     if (!files || files.length === 0) {
       res.render('workers', { files: false });
     } else {
@@ -73,7 +73,7 @@ healthWorkerRouter.get('/',function(req,res){
   });
 })
 healthWorkerRouter.get('/new',function(req,res){
-  gfs.files.find().toArray((err, files) => {
+  gfs.files.find().sort({_id:-1}).toArray((err, files) => {
    if (!files || files.length === 0) {
      res.render('newWorker', { files: false });
    } else {
