@@ -21,6 +21,7 @@ var postId=null;
 var file=null;
 conn.once('open', () => {
     // Init stream
+    console.log("Entered")
     gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('posts');
   });
@@ -72,6 +73,25 @@ postRouter.get('/',function(req,res){
     }
   });
 })
+postRouter.get('/new',function(req,res){
+  gfs.files.find().toArray((err, files) => {
+   if (!files || files.length === 0) {
+     res.render('news', { files: false });
+   } else {
+     files.map(file => {
+       if (
+         file.contentType === 'image/jpeg' ||
+         file.contentType === 'image/png'
+       ) {
+         file.isImage = true;
+       } else {
+         file.isImage = false;
+       }
+     });
+     res.render('newPost', { files: files });
+   }
+ });
+})
 postRouter.get('/top5',function(req,res){
   gfs.files.find().sort({_id:1}).limit(5).toArray((err, files) => {
    if (!files || files.length === 0) {
@@ -120,7 +140,7 @@ postRouter.post('/',upload.single('file',10),function(req,res){
     crypto.randomBytes(24, function(err, buffer) {
         randomFilename = buffer.toString('hex');
       });
-    res.redirect('/posts')
+    res.redirect('/posts/new')
 })
 postRouter.get('/:filename',function(req,res){
 
@@ -148,13 +168,13 @@ postRouter.put('/:filename',function(req,res){
     )
 })
 
-postRouter.post('/delete/:filename',function(req,res){
+postRouter.get('/delete/:filename',function(req,res){
     gfs.remove({ filename: req.params.filename, root: 'posts' }, (err, gridStore) => {
         if (err) {
           return res.status(404).json({ err: err });
         }
         else{
-            res.redirect('/posts/');
+            res.redirect('/posts/new');
         }
       });
 })

@@ -12,22 +12,51 @@
       width: 100%;
     }
   </style>
-  <title>Mongo File Uploads</title>
+  <title>Add a Post</title>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
       <div class="col-md-6 m-auto">
-        <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
+        <h1 class="">Add a post</h1>
+
         <form action="/posts" method="POST" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder=" Title">
+          <input type="text" name="title" placeholder="Title">
             <textarea name="headline" id="" cols="50" rows="5" class="textarea" placeholder=" Headline (pair of lines to describe your blog)"></textarea>
             <textarea name="body" id="" cols="50" rows="10" class="textarea" placeholder=" Content"></textarea>
+            <input type="text" name="link" placeholder="Link of the source">
+            <br>
             <input type="file" name="file" id="file" class="">
             <label for="file" class="">Choose File</label>
           <input type="submit" value="Submit" class="">
         </form>
+        <div class="col s12 m7">
+          <h1 class="text-center display-4 my-4 pageTitle">News</h1>
+          <hr>
+          <% if(files){ %>
+            <% files.forEach(function(file) { %>
+          <div class="card">
+            <div class="card-image">
+              <img src="/posts/image/<%= file.filename %>" alt="">
+              <span class="card-title"><%= file.metadata.headline %></span>
+            </div>
+            <div class="card-content">
+              <p><%= file.metadata.body %></p>
+            </div>
+            <div class="card-action">
+              <a href="<%= file.metadata.link %>" target="_blank">Read</a>
+              <a href="/posts/delete/<%= file.filename %>">Delete</a>
+            </div>
+            
+          </div>
+              <% }) %>    
+  
+          <% } else{ %>
+              <p>No files to show</p>
+              
+          <% } %>
+        </div>
       </div>
     </div>
   </div>

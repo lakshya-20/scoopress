@@ -35,10 +35,13 @@
         <div class="card">
           <div class="card-image">
             <img src="/healthWorkers/image/<%= file.filename %>" alt="">
-            <span class="card-title"><%= file.metadata.headline %></span>
+            <span class="card-title"><%= file.metadata.name %></span>
+          </div>
+          <div class="card-content">
+            <p><%= file.metadata.body %></p>
           </div>
           <div class="card-action">
-            <a href="<%= file.metadata.link %>">Contact</a>
+            <a href="<%= file.metadata.link %>" target="_blank">Contact</a>
           </div>
         </div>
             <% }) %>    

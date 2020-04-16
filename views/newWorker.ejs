@@ -19,15 +19,43 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 m-auto">
-        <h1 class="text-center display-4 my-4">New Worker</h1>
+        <h1 class="">Add New</h1>
+
         <form action="/healthWorkers" method="POST" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder=" Title">
-            <textarea name="headline" id="" cols="50" rows="5" class="textarea" placeholder=" Headline (pair of lines to describe your blog)"></textarea>
-            <textarea name="body" id="" cols="50" rows="10" class="textarea" placeholder=" Content"></textarea>
+          <input type="text" name="name" placeholder="Name">
+            <textarea name="body" id="" cols="50" rows="5" class="textarea" placeholder="About the person"></textarea>
+            <input type="text" name="link" placeholder="Contact Link">
+            <br>
             <input type="file" name="file" id="file" class="">
             <label for="file" class="">Choose File</label>
           <input type="submit" value="Submit" class="">
         </form>
+        <div class="col s12 m7">
+          <h1 class="text-center display-4 my-4 pageTitle">Honors Board<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_AQ3M8U.json"  background="transparent"  speed="1" class="animation2"  loop  autoplay></lottie-player></h1>
+          <hr>
+          <% if(files){ %>
+            <% files.forEach(function(file) { %>
+          <div class="card">
+            <div class="card-image">
+              <img src="/healthWorkers/image/<%= file.filename %>" alt="">
+              <span class="card-title"><%= file.metadata.name %></span>
+            </div>
+            <div class="card-content">
+              <p><%= file.metadata.body %></p>
+            </div>
+            <div class="card-action">
+              <a href="<%= file.metadata.link %>" target="_blank">Contact</a>
+              <a href="/healthWorkers/delete/<%= file.filename %>">Delete</a>
+            </div>
+          </div>
+              <% }) %>    
+  
+          <% } else{ %>
+              <p>No files to show</p>
+              
+          <% } %>
+        </div>
       </div>
     </div>
   </div>

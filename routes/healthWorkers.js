@@ -72,6 +72,25 @@ healthWorkerRouter.get('/',function(req,res){
     }
   });
 })
+healthWorkerRouter.get('/new',function(req,res){
+  gfs.files.find().toArray((err, files) => {
+   if (!files || files.length === 0) {
+     res.render('newWorker', { files: false });
+   } else {
+     files.map(file => {
+       if (
+         file.contentType === 'image/jpeg' ||
+         file.contentType === 'image/png'
+       ) {
+         file.isImage = true;
+       } else {
+         file.isImage = false;
+       }
+     });
+     res.render('newWorker', { files: files });
+   }
+ });
+})
 healthWorkerRouter.get('/image/:filename',(req,res)=>{
     gfs.files.findOne({filename:req.params.filename},(err,file)=>{
         if(!file || file.length===0){
@@ -101,7 +120,7 @@ healthWorkerRouter.post('/',upload.single('file',10),function(req,res){
     crypto.randomBytes(24, function(err, buffer) {
         randomFilename = buffer.toString('hex');
       });
-    res.redirect('/workers')
+    res.redirect('/healthWorkers/new')
 })
 healthWorkerRouter.get('/:filename',function(req,res){
 
@@ -129,13 +148,13 @@ healthWorkerRouter.put('/:filename',function(req,res){
     )
 })
 
-healthWorkerRouter.post('/delete/:filename',function(req,res){
+healthWorkerRouter.get('/delete/:filename',function(req,res){
     gfs.remove({ filename: req.params.filename, root: 'workers' }, (err, gridStore) => {
         if (err) {
           return res.status(404).json({ err: err });
         }
         else{
-            res.redirect('/workers/');
+            res.redirect('/healthWorkers/new');
         }
       });
 })
